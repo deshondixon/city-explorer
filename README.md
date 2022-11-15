@@ -28,6 +28,10 @@ Actual time needed to complete:
 
 ## Credit, Collaborations, Attached Links
 
+Diagram Collaboration: Brenda Jow
+
+![](Diagram.png)
+
 Followed Sheyna's example in class.
 
 Project Board: https://trello.com/b/eTursHtx/city-explorer
