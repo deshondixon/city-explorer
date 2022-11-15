@@ -29,8 +29,7 @@ Actual time needed to complete:
 ## Credit, Collaborations, Attached Links
 
 Diagram Collaboration: Brenda Jow
-
-![](Diagram.png)
+<img width="959" alt="Diagram" src="https://user-images.githubusercontent.com/107225817/202034599-d52ef352-d9d8-4f8c-9677-85dc205029d0.png">
 
 Followed Sheyna's example in class.
 
