@@ -28,7 +28,7 @@ Actual time needed to complete:
 
 ## Credit, Collaborations, Attached Links
 
-Collaboration: Harper Foley
+Followed Sheyna's example in class.
 
 Project Board: https://trello.com/b/eTursHtx/city-explorer
 Deployed Version: https://city-explorer-deshondixon.netlify.app/
