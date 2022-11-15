@@ -22,7 +22,7 @@ Estimate of time needed to complete: 5 hours
 
 Start time: 1:55pm
 
-Finish time: 
+Finish time: 6:03pm
 
 Actual time needed to complete: 
 
@@ -30,4 +30,4 @@ Actual time needed to complete:
 
 Collaboration: Harper Foley
 
-Project Board: https://trello.com/b/yBHTsfrs/city-explorer
+Project Board: https://trello.com/b/eTursHtx/city-explorer
