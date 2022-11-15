@@ -12,7 +12,6 @@ class App extends React.Component {
       cityData: {},
       isError: false,
       errorMessage: '',
-      isModalShown: false,
     }
   }
 
@@ -34,16 +33,9 @@ class App extends React.Component {
       this.setState({
         errorMessage: error.message,
         isError: true,
-     //   isModalShown: true,
       })
     }
   }
-
- // handleCloseModal = () => {
- //   this.setState({
-  //    isModalShown: false,
-  //  })
- // }
 
   render() {
 
