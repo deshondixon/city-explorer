@@ -30,7 +30,7 @@ class App extends React.Component {
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
       this.setState({
-        weatherData: weatherInfo.data[0],
+        forecast: weatherInfo.data,
         cityData: locationInfo.data[0],
         isError: false,
         isWeather:false,
@@ -45,6 +45,8 @@ class App extends React.Component {
   };
 
   render() {
+
+    
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=30`;
 
     return (
@@ -65,7 +67,7 @@ class App extends React.Component {
             ></img>{" "}
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
-            <p className="forecast"> Forecast: {this.state.forecast}</p>
+            <p className="forecast"> Forecast: {this.state.forecast} </p>
             {this.state.isError ? (
               <h3> {this.state.errorMessage} </h3>
             ) : (
