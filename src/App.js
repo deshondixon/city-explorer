@@ -11,6 +11,7 @@ class App extends React.Component {
       cityData: {},
       errorMessage: "",
       isError: false,
+      forecast: [],
     };
   }
 
@@ -23,10 +24,13 @@ class App extends React.Component {
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
+      let weatherData = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`
+
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
       this.setState({
+        forecast: weatherData[0],
         cityData: locationInfo.data[0],
         isError: false,
       });
@@ -59,6 +63,7 @@ class App extends React.Component {
             ></img>{" "}
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
+            <p className="forecast"> Forecast: {this.state.forecast}</p>
             {this.state.isError ? (
               <h3> {this.state.errorMessage} </h3>
             ) : (
