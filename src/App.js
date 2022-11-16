@@ -24,20 +24,22 @@ class App extends React.Component {
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      let weatherData = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`
+      let weatherInfo = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}`
 
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
       this.setState({
-        forecast: weatherData[0],
+        weatherData: weatherInfo.data[0],
         cityData: locationInfo.data[0],
         isError: false,
+        isWeather:false,
       });
     } catch (error) {
       this.setState({
         errorMessage: error.message,
         isError: true,
+        isCity: false,
       });
     }
   };
