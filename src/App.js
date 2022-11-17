@@ -27,7 +27,6 @@ class App extends React.Component {
       let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
 
       let weatherData = await axios.get(weatherUrl);
-      console.log(weatherData.data);
 
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
@@ -59,17 +58,17 @@ class App extends React.Component {
         <main>
           <form onSubmit={this.handleSubmit}>
             <h2> {this.state.cityData.display_name} 
-            {this.state.forecast.map((day) => (
-              <div>
-                <p> {day.date} </p> <p> {day.description} </p>{" "}
-              </div>
-            ))}
             </h2>{" "}
             <img
               className="map"
               src={mapURL}
               alt={this.state.city + "map"}
             ></img>{" "}
+            <h4>Three Day Forecast: {this.state.forecast.map((day) => (
+              <div>
+                <h5> <Badge> {day.date} | {day.description} </Badge></h5>{" "}
+              </div>
+            ))} </h4> 
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
            {" "}
