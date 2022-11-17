@@ -64,7 +64,7 @@ class App extends React.Component {
               src={mapURL}
               alt={this.state.city + "map"}
             ></img>{" "}
-            <h4>Three Day Forecast: {this.state.forecast.map((day) => (
+            <h4>Three Day Forecast {this.state.forecast.map((day) => (
               <div>
                 <p>{day.date}</p>
                 <h5> <Badge> {day.description} </Badge></h5>{" "}
