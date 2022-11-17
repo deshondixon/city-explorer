@@ -24,29 +24,28 @@ class App extends React.Component {
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      let weatherInfo = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}`
+      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+
+      let weatherData = await axios.get(weatherUrl);
+      console.log(weatherData.data);
 
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
       this.setState({
-        forecast: weatherInfo.data,
+        forecast: weatherData.data,
         cityData: locationInfo.data[0],
         isError: false,
-        isWeather:false,
       });
     } catch (error) {
       this.setState({
         errorMessage: error.message,
         isError: true,
-        isCity: false,
       });
     }
   };
 
   render() {
-
-    
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=30`;
 
     return (
@@ -54,12 +53,18 @@ class App extends React.Component {
         <header>
           <h1>
             {" "}
-            <Badge> City Explorer </Badge>
-          </h1>
+            <Badge> City Explorer </Badge>{" "}
+          </h1>{" "}
         </header>{" "}
         <main>
           <form onSubmit={this.handleSubmit}>
-            <h2> {this.state.cityData.display_name} </h2>{" "}
+            <h2> {this.state.cityData.display_name} 
+            {this.state.forecast.map((day) => (
+              <div>
+                <p> {day.date} </p> <p> {day.description} </p>{" "}
+              </div>
+            ))}
+            </h2>{" "}
             <img
               className="map"
               src={mapURL}
@@ -67,11 +72,11 @@ class App extends React.Component {
             ></img>{" "}
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
-            <p className="forecast"> Forecast: {this.state.forecast} </p>
+           {" "}
             {this.state.isError ? (
               <h3> {this.state.errorMessage} </h3>
             ) : (
-              <ul></ul>
+              <ul> </ul>
             )}{" "}
             <label>
               <input

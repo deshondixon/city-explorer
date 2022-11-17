@@ -75,7 +75,6 @@ button {
   padding: 1.5%;
   font-size: 1.4vw;
   display: inline-block;
-  padding-top: ;
   color: white;
   background-color: #232222;
 }
@@ -114,4 +113,8 @@ h1 {
 
 h3 {
   color: rgb(251, 0, 0);
+}
+
+img div {
+  display: inline-block;
 }
