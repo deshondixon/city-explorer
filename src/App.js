@@ -66,7 +66,8 @@ class App extends React.Component {
             ></img>{" "}
             <h4>Three Day Forecast: {this.state.forecast.map((day) => (
               <div>
-                <h5> <Badge> {day.date} | {day.description} </Badge></h5>{" "}
+                <p>{day.date}</p>
+                <h5> <Badge> {day.description} </Badge></h5>{" "}
               </div>
             ))} </h4> 
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
