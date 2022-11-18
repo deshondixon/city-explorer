@@ -72,7 +72,7 @@ class App extends React.Component {
       this.setState({
         cityData: locationInfo.data[0],
         isError: false,
-      },  this.handleWeather);
+      },  this.handleWeather, this.handleMovies);
 
     } catch (error) {
       this.setState({
