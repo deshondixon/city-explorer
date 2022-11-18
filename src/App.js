@@ -12,7 +12,7 @@ class App extends React.Component {
       errorMessage: '',
       isError: false,
       forecast: [],
-      movie: [],
+      movies: [],
     };
   }
 
@@ -50,7 +50,7 @@ class App extends React.Component {
     this.setState({
       movie: movieData.data,
       isError: false,
-    })
+    });
   } catch (error) {
     this.setState({
       errorMessage: error.message,
@@ -72,7 +72,7 @@ class App extends React.Component {
       this.setState({
         cityData: locationInfo.data[0],
         isError: false,
-      },  this.handleWeather, this.handleWeather);
+      },  this.handleWeather);
 
     } catch (error) {
       this.setState({
@@ -85,16 +85,16 @@ class App extends React.Component {
   
 
   render() {
+
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=30`;
 
     return (
       <>
         <header>
           <h1>
-            {" "}
-            <Badge> City Explorer </Badge>{" "}
-          </h1>{" "}
-        </header>{" "}
+            <Badge> City Explorer </Badge>
+          </h1>
+        </header>
         <main>
           <form onSubmit={this.handleSubmit}>
             <h2> {this.state.cityData.display_name} 
@@ -109,23 +109,19 @@ class App extends React.Component {
                 <p>{day.date}</p>
                 <h5> {day.description} </h5>
               </div>
-            ))}; </h4> 
+            ))} </h4> 
 
+            <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>
+            <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>
 
-            <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
-            <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
-
-
-            <h4> Movies {this.state.movie.map((movie, idx) => (
+            <h4> Movies {this.state.movies.map((movie, idx) => (
               <div key={`movie-${idx}`}>
-                <p>
-                  {movie.title}
+                  <p>{movie.title}</p>
                   {movie.summary}
                   {movie.averageVotes}
                   {movie.totalVotes}
                   {movie.poster}
                   {movie.releasedDate}
-                  </p>
               </div>
             ))} </h4>
 
@@ -133,18 +129,18 @@ class App extends React.Component {
               <h3> {this.state.errorMessage} </h3>
             ) : (
               <ul> </ul>
-            )}{" "}
+            )}
             <label>
               <input
                 type="text"
                 name="city"
                 onChange={this.handleInputChange}
-              />{" "}
-            </label>{" "}
-            <button type="submit"> Search for a City </button>{" "}
+              />
+            </label>
+            <button type="submit"> Search for a City </button>
           </form>
         </main>
-        <footer> ⒸDeShon Dixon 2022 </footer>{" "}
+        <footer> ⒸDeShon Dixon 2022 </footer>
       </>
     );
   }
