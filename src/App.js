@@ -7,9 +7,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: "",
+      city: '',
       cityData: {},
-      errorMessage: "",
+      errorMessage: '',
       isError: false,
       forecast: [],
       movie: [],
@@ -23,24 +23,41 @@ class App extends React.Component {
   };
 
   handleWeather = async () => {
+    try {
     let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?weatherLat=${this.state.cityData.lat}&weatherLon=${this.state.cityData.lon}`;
 
     let weatherData = await axios.get(weatherUrl);
 
     this.setState({
       forecast: weatherData.data,
+      isError: false,
     });
+  } catch (error) {
+    this.setState({
+      errorMessage: error.message,
+      isError: true,
+    });
+    
+  }
   };
 
   handleMovies = async () => {
-    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.cityData.searchCity}`;
+    try {
+    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`; 
 
     let movieData = await axios.get(movieUrl);
 
     this.setState({
       movie: movieData.data,
+      isError: false,
     })
-   console.log(movieData);
+  } catch (error) {
+    this.setState({
+      errorMessage: error.message,
+      isError: true,
+    });
+    
+  }
   }
  
 
@@ -55,7 +72,7 @@ class App extends React.Component {
       this.setState({
         cityData: locationInfo.data[0],
         isError: false,
-      },  this.handleWeather);
+      },  this.handleWeather, this.handleWeather);
 
     } catch (error) {
       this.setState({
