@@ -40,15 +40,16 @@ class App extends React.Component {
     
   }
   };
-
+  
   handleMovies = async () => {
+    
     try {
     let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`; 
 
     let movieData = await axios.get(movieUrl);
-
+    console.log(movieData);
     this.setState({
-      movie: movieData.data,
+      movies: movieData.data,
       isError: false,
     });
   } catch (error) {
@@ -72,7 +73,8 @@ class App extends React.Component {
       this.setState({
         cityData: locationInfo.data[0],
         isError: false,
-      },  this.handleWeather, this.handleMovies);
+      },  this.handleWeather);
+      this.handleMovies();
 
     } catch (error) {
       this.setState({
@@ -117,10 +119,14 @@ class App extends React.Component {
             <h4> Movies {this.state.movies.map((movie, idx) => (
               <div key={`movie-${idx}`}>
                   <p>{movie.title}</p>
-                  {movie.summary}
                   {movie.averageVotes}
                   {movie.totalVotes}
-                  {movie.poster}
+                  <img
+              className="map"
+              src={movie.poster}
+              alt=""
+              />
+              {movie.summary}
                   {movie.releasedDate}
               </div>
             ))} </h4>
