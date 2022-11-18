@@ -12,6 +12,7 @@ class App extends React.Component {
       errorMessage: "",
       isError: false,
       forecast: [],
+      movie: [],
     };
   }
 
@@ -21,28 +22,50 @@ class App extends React.Component {
     });
   };
 
+  handleWeather = async () => {
+    let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?weatherLat=${this.state.cityData.lat}&weatherLon=${this.state.cityData.lon}`;
+
+    let weatherData = await axios.get(weatherUrl);
+
+    this.setState({
+      forecast: weatherData.data,
+    });
+  };
+
+  handleMovies = async () => {
+    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.cityData.searchCity}`;
+
+    let movieData = await axios.get(movieUrl);
+
+    this.setState({
+      movie: movieData.data,
+    })
+   console.log(movieData);
+  }
+ 
+
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
-
-      let weatherData = await axios.get(weatherUrl);
 
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
+      
       this.setState({
-        forecast: weatherData.data,
         cityData: locationInfo.data[0],
         isError: false,
-      });
+      },  this.handleWeather);
+
     } catch (error) {
       this.setState({
         errorMessage: error.message,
         isError: true,
       });
     }
+   
   };
+  
 
   render() {
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=30`;
@@ -58,21 +81,37 @@ class App extends React.Component {
         <main>
           <form onSubmit={this.handleSubmit}>
             <h2> {this.state.cityData.display_name} 
-            </h2>{" "}
-            <img
+            </h2>
+            {this.state.cityData.lat && <img
               className="map"
               src={mapURL}
               alt={this.state.city + "map"}
-            ></img>{" "}
-            <h4>Three Day Forecast {this.state.forecast.map((day) => (
-              <div>
+            />}
+            <h4>Three Day Forecast {this.state.forecast.map((day, idx) => (
+              <div key={`weather-${idx}`}>
                 <p>{day.date}</p>
-                <h5> <Badge> {day.description} </Badge></h5>{" "}
+                <h5> {day.description} </h5>
               </div>
-            ))} </h4> 
+            ))}; </h4> 
+
+
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>{" "}
-           {" "}
+
+
+            <h4> Movies {this.state.movie.map((movie, idx) => (
+              <div key={`movie-${idx}`}>
+                <p>
+                  {movie.title}
+                  {movie.summary}
+                  {movie.averageVotes}
+                  {movie.totalVotes}
+                  {movie.poster}
+                  {movie.releasedDate}
+                  </p>
+              </div>
+            ))} </h4>
+
             {this.state.isError ? (
               <h3> {this.state.errorMessage} </h3>
             ) : (
@@ -86,8 +125,8 @@ class App extends React.Component {
               />{" "}
             </label>{" "}
             <button type="submit"> Search for a City </button>{" "}
-          </form>{" "}
-        </main>{" "}
+          </form>
+        </main>
         <footer> ⒸDeShon Dixon 2022 </footer>{" "}
       </>
     );
