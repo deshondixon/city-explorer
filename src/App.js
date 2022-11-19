@@ -1,15 +1,17 @@
 import React from "react";
 import axios from "axios";
 import Badge from "react-bootstrap/Badge";
+import Movies from "./Movies";
 import "./App.css";
+import Weather from "./Weather";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: '',
+      city: "",
       cityData: {},
-      errorMessage: '',
+      errorMessage: "",
       isError: false,
       forecast: [],
       movies: [],
@@ -24,43 +26,39 @@ class App extends React.Component {
 
   handleWeather = async () => {
     try {
-    let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?weatherLat=${this.state.cityData.lat}&weatherLon=${this.state.cityData.lon}`;
+      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?weatherLat=${this.state.cityData.lat}&weatherLon=${this.state.cityData.lon}`;
 
-    let weatherData = await axios.get(weatherUrl);
+      let weatherData = await axios.get(weatherUrl);
 
-    this.setState({
-      forecast: weatherData.data,
-      isError: false,
-    });
-  } catch (error) {
-    this.setState({
-      errorMessage: error.message,
-      isError: true,
-    });
-    
-  }
+      this.setState({
+        forecast: weatherData.data,
+        isError: false,
+      });
+    } catch (error) {
+      this.setState({
+        errorMessage: error.message,
+        isError: true,
+      });
+    }
   };
-  
-  handleMovies = async () => {
-    
-    try {
-    let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`; 
 
-    let movieData = await axios.get(movieUrl);
-    console.log(movieData);
-    this.setState({
-      movies: movieData.data,
-      isError: false,
-    });
-  } catch (error) {
-    this.setState({
-      errorMessage: error.message,
-      isError: true,
-    });
-    
-  }
-  }
- 
+  handleMovies = async () => {
+    try {
+      let movieUrl = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`;
+
+      let movieData = await axios.get(movieUrl);
+     
+      this.setState({
+        movies: movieData.data,
+        isError: false,
+      });
+    } catch (error) {
+      this.setState({
+        errorMessage: error.message,
+        isError: true,
+      });
+    }
+  };
 
   handleSubmit = async (event) => {
     try {
@@ -69,25 +67,24 @@ class App extends React.Component {
       let locationInfo = await axios.get(
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
       );
-      
-      this.setState({
-        cityData: locationInfo.data[0],
-        isError: false,
-      },  this.handleWeather);
-      this.handleMovies();
 
+      this.setState(
+        {
+          cityData: locationInfo.data[0],
+          isError: false,
+        },
+        this.handleWeather
+      );
+      this.handleMovies();
     } catch (error) {
       this.setState({
         errorMessage: error.message,
         isError: true,
       });
     }
-   
   };
-  
 
   render() {
-
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=30`;
 
     return (
@@ -99,37 +96,13 @@ class App extends React.Component {
         </header>
         <main>
           <form onSubmit={this.handleSubmit}>
-            <h2> {this.state.cityData.display_name} 
-            </h2>
-            {this.state.cityData.lat && <img
-              className="map"
-              src={mapURL}
-              alt={this.state.city + "map"}
-            />}
-            <h4>Three Day Forecast {this.state.forecast.map((day, idx) => (
-              <div key={`weather-${idx}`}>
-                <p>{day.date}</p>
-                <h5> {day.description} </h5>
-              </div>
-            ))} </h4> 
+            <h2> {this.state.cityData.display_name}</h2>
+            {this.state.cityData.lat && (
+              <img className="map" src={mapURL} alt={this.state.city + "map"} />
+            )}
 
             <p className="latitudes"> Latitude: {this.state.cityData.lat} </p>
             <p className="longitudes"> Latitude: {this.state.cityData.lat} </p>
-
-            <h4> Movies {this.state.movies.map((movie, idx) => (
-              <div key={`movie-${idx}`}>
-                  <p>{movie.title}</p>
-                  {movie.averageVotes}
-                  {movie.totalVotes}
-                  <img
-              className="map"
-              src={movie.poster}
-              alt=""
-              />
-              {movie.summary}
-                  {movie.releasedDate}
-              </div>
-            ))} </h4>
 
             {this.state.isError ? (
               <h3> {this.state.errorMessage} </h3>
@@ -145,7 +118,23 @@ class App extends React.Component {
             </label>
             <button type="submit"> Search for a City </button>
           </form>
+          <Weather
+            forecast={this.state.forecast}
+            handleMovies={this.handleWeather}
+            handleSubmit={this.handleSubmit}
+            handleInputChange={this.handleInputChange}
+            city={this.state.city}
+            cityData={this.state.cityData}
+          />
+          <Movies
+            movies={this.state.movies}
+            handleMovies={this.handleMovies}
+            handleSubmit={this.handleSubmit}
+            handleInputChange={this.handleInputChange}
+            city={this.state.city}
+          />
         </main>
+
         <footer> ⒸDeShon Dixon 2022 </footer>
       </>
     );
