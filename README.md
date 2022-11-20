@@ -16,7 +16,7 @@ CSS 3
 
 ## Change Log
 
-Name of feature: 
+Name of feature: Front-End Build
 
 Estimate of time needed to complete: 5 hours
 
@@ -24,7 +24,42 @@ Start time: 1:55pm
 
 Finish time: 6:03pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 5 hours
+
+
+Name of feature: Movies
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 1:45pm 
+
+Finish time: 7:50pm 
+
+Actual time needed to complete: 6 hours 5 minutes
+
+
+Name of feature: Weather 
+
+Estimate of time needed to complete: 6 hours
+
+Start time: 2:30pm 
+
+Finish time: 9:53pm 
+
+Actual time needed to complete: 7 hours
+
+
+
+Name of feature: Refactor Front-End
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 9:03am 
+
+Finish time: 11:43pm 
+
+Actual time needed to complete: 3 hours 40 minutes
+
 
 ## Credit, Collaborations, Attached Links
 
