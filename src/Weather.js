@@ -12,7 +12,7 @@ class Weather extends React.Component {
               <p>{day.date}</p>
               <h5> {day.description} </h5>
             </div>
-          ))}{" "}
+          ))}
         </h4>
       </>
     );

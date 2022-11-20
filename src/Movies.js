@@ -6,8 +6,7 @@ class Movies extends React.Component {
     return (
       <>
         <h4>
-          {" "}
-          Movies{" "}
+          Movies
           {this.props.movies.map((movie, idx) => (
             <div key={`movie-${idx}`}>
               <p>{movie.title}</p>
@@ -17,7 +16,7 @@ class Movies extends React.Component {
               {movie.summary}
               {movie.releasedDate}
             </div>
-          ))}{" "}
+          ))}
         </h4>
       </>
     );
