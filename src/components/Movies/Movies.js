@@ -1,5 +1,5 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import './Movies.css';
 
 class Movies extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class Movies extends React.Component {
               <p>{movie.title}</p>
               {movie.averageVotes}
               {movie.totalVotes}
-              <img className="map" src={movie.poster} alt="" />
+              <img className='map' src={movie.poster} alt='' />
               {movie.summary}
               {movie.releasedDate}
             </div>

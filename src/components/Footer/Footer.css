@@ -1,0 +1,13 @@
+h5 {
+  box-shadow: 3px 2px 30px .01px #ffffff24;
+  font-size: 2.3vw;
+
+  border-radius: 5vw ;
+  padding: 2%;
+  width: 60%;
+  background-color: #090909;
+  display: inline-block;
+  word-spacing: 15%;
+   border: .7rem #171717;
+  border-style: inset;
+}
