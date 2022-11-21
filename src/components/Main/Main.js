@@ -26,7 +26,7 @@ class Main extends React.Component {
 
   handleWeather = async () => {
     try {
-      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?weatherLat=${this.state.cityData.lat}&weatherLon=${this.state.cityData.lon}`;
+      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}`;
 
       let weatherData = await axios.get(weatherUrl);
 
