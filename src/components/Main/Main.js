@@ -112,9 +112,11 @@ class Main extends React.Component {
                 onChange={this.handleInputChange}
               />
             </label>
-            <button type='submit'> Search for a City </button>
+            <button type='submit'> EXPLORE </button>
           </form>
           <Weather
+            show={this.state.isModalShown}
+            onHide={this.closeModal}
             forecast={this.state.forecast}
             handleWeather={this.handleWeather}
             handleSubmit={this.handleSubmit}
@@ -123,6 +125,8 @@ class Main extends React.Component {
             cityData={this.state.cityData}
           />
           <Movies
+            show={this.state.isModalShown}
+            onHide={this.closeModal}
             movies={this.state.movies}
             handleMovies={this.handleMovies}
             handleSubmit={this.handleSubmit}
